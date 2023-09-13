@@ -44,11 +44,18 @@ class UserController extends Controller
 
     public function update(Request $request, string $id)
     {
+        $input = $request->toArray();
+
         $user = User::find($id);
+
+        if($input['password'] != null){
+            $input['password'] = bcrypt($input['password']);
+        }else{
+            $input['password'] = $user['password'];
+        }
 
         $user->name = $request->input('name');
 
-        // Verifique se a senha foi fornecida no formulário e, se sim, criptografe-a
         if ($request->has('password')) {
             $user->password = bcrypt($request->input('password'));
         }

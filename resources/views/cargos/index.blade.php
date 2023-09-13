@@ -24,10 +24,10 @@
         <tbody>
 
             @foreach ($cargos as $cargo)
-            <tr>
-                <th class="text-center" scope="row">{{ $cargo->id }}</th>
-                <td class="text-center">{{ $cargo->descricao }}</td>
-                <td class="text-center">
+            <tr class="aling-middle text-center">
+                <th scope="row">{{ $cargo->id }}</th>
+                <td>{{ $cargo->descricao }}</td>
+                <td>
                     <a href="{{ route('cargos.edit', $cargo->id) }}" title="Editar" class="btn btn-primary"><i class="bi bi-pen"></i></a>
                     <a href="" title="Deletar" class="btn btn-danger"><i class="bi bi-trash"></i></a>
                 </td>

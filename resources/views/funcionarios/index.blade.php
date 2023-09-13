@@ -27,19 +27,19 @@
         <tbody>
 
             @foreach ($funcionarios as $funcionario)
-          <tr>
-            <th class="text-center" scope="row">{{ $funcionario->id }}</th>
-            <td class="text-center">
+          <tr class="align-middle text-center">
+            <th scope="row">{{ $funcionario->id }}</th>
+            <td>
                 @if (empty($funcionario->foto))
                     <img src="/images/sombra_funcionario.jpg" alt="foto" class="img-thumbnail" width="70">
                 @else
                     <img src="storage/funcionarios/{{ $funcionario->foto }}" alt="fotos" class="img-thumbnail" width="70">
                 @endif
             </td>
-            <td class="text-center">{{ $funcionario->nome}}</td>
-            <td class="text-center">{{ $funcionario->cargo->descricao}}</td>
-            <td class="text-center">{{ $funcionario->departamento->nome}}</td>
-            <td class="text-center">
+            <td>{{ $funcionario->nome}}</td>
+            <td>{{ $funcionario->cargo->descricao}}</td>
+            <td>{{ $funcionario->departamento->nome}}</td>
+            <td>
                 <a href="{{ route('funcionarios.edit', $funcionario->id) }}" title="Editar" class="btn btn-primary"><i class="bi bi-pen"></i></a>
                 <a href="" title="Deletar" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-delete-{{ $funcionario->id }}"><i class="bi bi-trash"></i></a>
                 <x-modal-delete>

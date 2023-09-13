@@ -8,7 +8,7 @@
   </div>
   <div class="col-md-4">
     <label for="email" class="form-label">Senha</label>
-    <input type="password" class="form-control" id="password" name="password" value="{{ $user->password ?? "" }}" required>
+    <input type="password" class="form-control" id="password" name="password" value="">
     </div>
     <div class="col-md-4">
         <label for="tipo" class="form-label">Tipo</label>
@@ -16,7 +16,5 @@
             <option value="usuario" {{ old('tipo', isset($user) ? $user->tipo : '') == 'usuario' ? 'selected' : '' }}>usuario</option>
             <option value="admin" {{ old('tipo', isset($user) ? $user->tipo : '') == 'admin' ? 'selected' : '' }}>admin</option>
         </select>
-
-
     </div>
 

@@ -10,7 +10,6 @@
 
     @if (Session::get('sucesso'))
         <div class="alert alert-success text-center">{{ Session::get('sucesso') }}</div>
-
     @endif
 
     <table class="table table-striped">
@@ -22,17 +21,16 @@
           </tr>
         </thead>
         <tbody>
-
             @foreach ($departamentos as $departamentos)
-          <tr>
-            <th class="text-center" scope="row">{{ $departamentos->id }}</th>
-            <td class="text-center">{{ $departamentos->nome}}</td>
-            <td class="text-center">
-                <a href="{{ route('departamentos.edit', $departamentos->id) }}" title="Editar" class="btn btn-primary"><i class="bi bi-pen"></i></a>
-                <a href="" title="Deletar" class="btn btn-danger"><i class="bi bi-trash"></i></a>
-            </td>
-          </tr>
-          @endforeach
+                <tr class="aling-middle text-center">
+                    <th scope="row">{{ $departamentos->id }}</th>
+                    <td>{{ $departamentos->nome}}</td>
+                    <td>
+                        <a href="{{ route('departamentos.edit', $departamentos->id) }}" title="Editar" class="btn btn-primary"><i class="bi bi-pen"></i></a>
+                        <a href="" title="Deletar" class="btn btn-danger"><i class="bi bi-trash"></i></a>
+                    </td>
+                </tr>
+            @endforeach
         </tbody>
-      </table>
+    </table>
 @endsection
