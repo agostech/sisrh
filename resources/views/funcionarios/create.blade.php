@@ -8,8 +8,8 @@
         @csrf <!--token for security-->
         @include('funcionarios.partials.form')
         <div class="col-12">
-          <button type="submit" class="btn btn-success">Cadastrar</button>
-          <a href="{{ route('funcionarios.index') }}" class="btn btn-danger">Cancelar</a>
+            <button type="submit" class="btn btn-success">Cadastrar</button>
+            <a href="{{ route('funcionarios.index') }}" class="btn btn-danger">Cancelar</a>
         </div>
-      </form>
+    </form>
 @endsection

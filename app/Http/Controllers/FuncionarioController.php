@@ -14,10 +14,14 @@ class FuncionarioController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $funcionarios = Funcionario::all()->sortBy('nome');
-        return view('funcionarios.index', compact('funcionarios'));
+        $funcionarios = Funcionario::where('nome', 'like', '%'.$request->busca.'%')
+        ->orderBy('nome', 'asc')->paginate(3);
+
+        $totalFuncionarios = Funcionario::all()->count();
+
+        return view('funcionarios.index', compact('funcionarios', 'totalFuncionarios'));
     }
 
     /**
@@ -40,7 +44,7 @@ class FuncionarioController extends Controller
 
         $input['user_id'] = 1;
 
-        if($request->hasFile('foto')){
+        if ($request->hasFile('foto')) {
             $input['foto'] = $this->uploadFoto($request->foto);
         }
 
@@ -50,15 +54,16 @@ class FuncionarioController extends Controller
         return redirect()->route('funcionarios.index')->with('sucesso', 'Funcionário cadastrado com sucesso!');
     }
 
-    private function uploadFoto($foto){
+    private function uploadFoto($foto)
+    {
         $nomeArquivo = $foto->hashName();
 
         //Redimensionar - Foto
-        $imagem = Image::make($foto)->fit(200,200);
+        $imagem = Image::make($foto)->fit(200, 200);
 
 
         //save photo archive
-        Storage::put('public/funcionarios/'.$nomeArquivo, $imagem->encode());
+        Storage::put('public/funcionarios/' . $nomeArquivo, $imagem->encode());
         //$foto->store('public/funcionarios/');
         return $nomeArquivo;
     }
@@ -77,14 +82,13 @@ class FuncionarioController extends Controller
     {
         $funcionario = Funcionario::find($id);
 
-        if(!$funcionario){
+        if (!$funcionario) {
             return back();
         }
 
         $departamentos = Departamento::all()->sortBy('nome');
         $cargos = Cargo::all()->sortBy('descricao');
         return view('funcionarios.edit', compact('funcionario', 'departamentos', 'cargos'));
-
     }
 
     /**
@@ -96,8 +100,8 @@ class FuncionarioController extends Controller
 
         $funcionario = Funcionario::find($id);
 
-        if($request->hasFile('foto')){
-            Storage::delete('public/funcionarios/'.$funcionario['foto']);
+        if ($request->hasFile('foto')) {
+            Storage::delete('public/funcionarios/' . $funcionario['foto']);
             $input['foto'] = $this->uploadFoto($request->foto);
         }
 
@@ -113,8 +117,8 @@ class FuncionarioController extends Controller
     {
         $funcionario = Funcionario::find($id);
 
-        if($funcionario['foto'] != null){
-            Storage::delete('public/funcionarios/'.$funcionario['foto']);
+        if ($funcionario['foto'] != null) {
+            Storage::delete('public/funcionarios/' . $funcionario['foto']);
         }
 
         $funcionario->delete();
