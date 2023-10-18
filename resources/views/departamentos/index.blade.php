@@ -6,6 +6,7 @@
         <x-slot name="route">{{ @route('departamentos.create') }}</x-slot>
         <x-slot name="title">Cadastrar Departamento</x-slot>
     </x-btn-create>
+
     <h1 class="fs-2 mb-3">Lista de Departamentos</h1>
 
     @if (Session::get('sucesso'))
@@ -33,4 +34,5 @@
             @endforeach
         </tbody>
     </table>
+
 @endsection
