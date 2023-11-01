@@ -6,11 +6,19 @@
         <x-slot name="route">{{ route('users.create') }}</x-slot>
         <x-slot name="title">Cadastrar Usuário</x-slot>
     </x-btn-create>
+
     <h1 class="fs-2 mb-3">Lista Usuários</h1>
+
+    <p>Total de usuários: {{ $totalUsers }}</p>
 
     @if (Session::get('sucesso'))
         <div class="alert alert-success text-center">{{ Session::get('sucesso') }}</div>
     @endif
+
+    <x-busca>
+        <x-slot name="rota">{{ route('users.index') }}</x-slot>
+        <x-slot name="tipo">Usuário</x-slot>
+    </x-busca>
 
     <table class="table table-striped">
         <thead class="table-dark">
@@ -37,4 +45,11 @@
             @endforeach
         </tbody>
     </table>
+
+    <style>
+        .pagination {
+            justify-content: center;
+        }
+    </style>
+    {{ $user->links() }}
 @endsection

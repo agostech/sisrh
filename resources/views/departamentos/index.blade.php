@@ -9,9 +9,16 @@
 
     <h1 class="fs-2 mb-3">Lista de Departamentos</h1>
 
+    <p>Total de departamentos: {{ $totalDepartamentos }}</p>
+
     @if (Session::get('sucesso'))
         <div class="alert alert-success text-center">{{ Session::get('sucesso') }}</div>
     @endif
+
+    <x-busca>
+        <x-slot name="rota">{{ route('departamentos.index') }}</x-slot>
+        <x-slot name="tipo">Departamento</x-slot>
+    </x-busca>
 
     <table class="table table-striped">
         <thead class="table-dark">
@@ -22,12 +29,12 @@
           </tr>
         </thead>
         <tbody>
-            @foreach ($departamentos as $departamentos)
+            @foreach ($departamentos as $departamento)
                 <tr class="aling-middle text-center">
-                    <th scope="row">{{ $departamentos->id }}</th>
-                    <td>{{ $departamentos->nome}}</td>
+                    <th scope="row">{{ $departamento->id }}</th>
+                    <td>{{ $departamento->nome}}</td>
                     <td>
-                        <a href="{{ route('departamentos.edit', $departamentos->id) }}" title="Editar" class="btn btn-primary"><i class="bi bi-pen"></i></a>
+                        <a href="{{ route('departamentos.edit', $departamento->id) }}" title="Editar" class="btn btn-primary"><i class="bi bi-pen"></i></a>
                         <a href="" title="Deletar" class="btn btn-danger"><i class="bi bi-trash"></i></a>
                     </td>
                 </tr>
@@ -35,4 +42,10 @@
         </tbody>
     </table>
 
+    <style>
+        .pagination {
+            justify-content: center;
+        }
+    </style>
+    {{ $departamentos->links() }}
 @endsection

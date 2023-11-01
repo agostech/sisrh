@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
+    // verifica se o usuário está logado
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      */

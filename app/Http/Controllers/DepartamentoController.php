@@ -7,13 +7,21 @@ use Illuminate\Http\Request;
 
 class DepartamentoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $departamentos = Departamento::all()->sortBy('nome');
-        return view('departamentos.index', compact('departamentos'));
+        $departamentos = Departamento::where('nome', 'like', '%'.$request->busca.'%')
+        ->orderBy('nome', 'asc')->paginate(3);
+
+        $totalDepartamentos = Departamento::all()->count();
+
+        return view('departamentos.index', compact('departamentos', 'totalDepartamentos'));
     }
 
     /**
