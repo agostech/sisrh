@@ -22,7 +22,7 @@ class FuncionarioController extends Controller
     public function index(Request $request)
     {
         $funcionarios = Funcionario::where('nome', 'like', '%'.$request->busca.'%')
-        ->orderBy('nome', 'asc')->paginate(3);
+        ->orderBy('nome', 'asc')->paginate(10);
 
         $totalFuncionarios = Funcionario::all()->count();
 

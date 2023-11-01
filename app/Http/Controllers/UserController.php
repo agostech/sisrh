@@ -18,7 +18,7 @@ class UserController extends Controller
         if(Gate::allows('tipo-usuario')){
 
             $user = User::where('name', 'like', '%'.$request->busca.'%')
-            ->orderBy('name', 'asc')->paginate(3);
+            ->orderBy('name', 'asc')->paginate(10);
 
             $totalUsers = User::all()->count();
             return view('users.index', compact('user', 'totalUsers'));
