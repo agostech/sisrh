@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('beneficios', function (Blueprint $table) {
-            $table->id();
-            $table->string('descricao');
-            $table->enum('status',['on','off']);
-            $table->timestamps();
+        Schema::table('funcionarios', function (Blueprint $table) {
+            $table->enum('status',['on','off'])->after('user_id');
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('beneficios');
+        Schema::table('funcionarios', function (Blueprint $table) {
+            $table->dropColumn('status');
+        });
     }
 };
