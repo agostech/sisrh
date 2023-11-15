@@ -2,7 +2,7 @@
     <label for="nome" class="form-label">Nome</label>
     <input type="text" class="form-control" id="nome" name="nome" value="{{ $funcionario->nome ?? "" }}" required>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-6">
     <label for="data_nasc" class="form-label">Data de Nascimento</label>
     <input type="date" class="form-control" id="data_nasc" name="data_nasc" value="{{ $funcionario->data_nasc ?? "" }}" required>
   </div>
@@ -70,7 +70,19 @@
         <img src="{{ asset('images/sombra_funcionario.jpg') }}" alt="foto padrão" class="img-thumbnail">
     @endif
   </div>
-  <div class="col-md-10">
+  <div class="col-md-6">
     <label for="foto" class="form-label">Foto</label>
     <input type="file" class="form-control" id="foto" name="foto">
+  </div>
+
+  <div class="col-md-4">
+    <label for="beneficios">Benefícios</label>
+    <div>
+        @foreach ($beneficios as $beneficio)
+            <input type="checkbox" value="{{ $beneficio->id }}" name="beneficios[]"
+            @if(isset($funcionario->beneficios))
+                @checked(in_array($beneficio->id, $beneficio_selecionados))
+            @endif> {{ $beneficio->descricao }}<br>
+        @endforeach
+    </div>
   </div>
