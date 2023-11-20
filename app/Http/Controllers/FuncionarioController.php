@@ -23,7 +23,9 @@ class FuncionarioController extends Controller
      */
     public function index(Request $request)
     {
-        $funcionarios = Funcionario::where('nome', 'like', '%'.$request->busca.'%')->orderby('nome', 'asc')->paginate(3);
+        $funcionarios = Funcionario::where('nome', 'like', '%'.$request->busca.'%')
+        ->where('status', 'on')
+        ->orderby('nome', 'asc')->paginate(3);
 
         $totalFuncionarios = Funcionario::all()->count();
 
@@ -83,9 +85,10 @@ class FuncionarioController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $funcionario = Funcionario::findOrFail($id);
+        return view('funcionarios.show', ['funcionario' => $funcionario]);
     }
 
     /**
@@ -108,7 +111,6 @@ class FuncionarioController extends Controller
         foreach($funcionario->beneficios as $beneficio_selecionado){
             $beneficio_selecionados[] = $beneficio_selecionado->id;
         }
-
         // dd($beneficio_selecionados);
 
         return view('funcionarios.edit', compact('funcionario', 'departamentos', 'cargos', 'beneficios', 'beneficio_selecionados'));
@@ -134,7 +136,8 @@ class FuncionarioController extends Controller
 
         $funcionario->fill($input);
         $funcionario->save();
-        return redirect()->route('funcionarios.index')->with('Sucesso', 'Funcionário alterado com sucesso!');
+
+        return redirect()->route('funcionarios.index')->with('sucesso', 'Funcionário alterado com sucesso!');
     }
 
     /**

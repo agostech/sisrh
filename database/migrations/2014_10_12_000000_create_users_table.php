@@ -3,6 +3,7 @@
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -18,9 +19,43 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->enum('tipo', ['usuario', 'admin']);
             $table->rememberToken();
             $table->timestamps();
         });
+
+        DB::table('users')->insert([
+            [
+                'name' => 'Admin',
+                'email' => 'admin@gmail.com',
+                'tipo' => 'admin',
+                'password' => bcrypt('12345'),
+            ],
+            [
+                'name' => 'Usuario1',
+                'email' => 'usuario1@gmail.com',
+                'tipo' => 'usuario',
+                'password' => bcrypt('123'),
+            ],
+            [
+                'name' => 'Usuario2',
+                'email' => 'usuario2@gmail.com',
+                'tipo' => 'usuario',
+                'password' => bcrypt('123'),
+            ],
+            [
+                'name' => 'Usuario3',
+                'email' => 'usuario3@gmail.com',
+                'tipo' => 'usuario',
+                'password' => bcrypt('123'),
+            ],
+            [
+                'name' => 'Usuario4',
+                'email' => 'usuario4@gmail.com',
+                'tipo' => 'usuario',
+                'password' => bcrypt('123'),
+            ],
+        ]);
     }
 
     /**

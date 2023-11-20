@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Beneficio;
 use Illuminate\Http\Request;
 
 class BeneficioController extends Controller
@@ -15,9 +16,15 @@ class BeneficioController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $beneficios = Beneficio::where('descricao', 'like', '%'.$request->busca.'%')
+        ->orderby('descricao', 'asc')->paginate(3);
+
+        $totalBeneficios = Beneficio::all()->count();
+
+        // Receber os dados do banco através do model
+        return view('beneficios.index', compact('beneficios', 'totalBeneficios'));
     }
 
     /**
@@ -25,7 +32,8 @@ class BeneficioController extends Controller
      */
     public function create()
     {
-        //
+
+        return view('beneficios.create');
     }
 
     /**
@@ -33,7 +41,13 @@ class BeneficioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->toArray();
+        //dd($input);
+
+        $input['user_id'] = auth()->user()->id;
+        Beneficio::create($input);
+
+        return redirect()->route('beneficios.index')->with('sucesso', 'Benefício cadastrado com sucesso!');
     }
 
     /**
@@ -49,7 +63,13 @@ class BeneficioController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $beneficio = Beneficio::find($id);
+
+        if(!$beneficio){
+            return back();
+        }
+
+        return view('beneficios.edit', compact('beneficio'));
     }
 
     /**
@@ -57,7 +77,12 @@ class BeneficioController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $beneficio = Beneficio::find($id);
+
+        $beneficio->descricao = $request->input('descricao');
+        $beneficio->save();
+
+        return redirect()->route('beneficios.index')->with('sucesso', 'Benefício alterado com sucesso!');
     }
 
     /**
@@ -65,6 +90,19 @@ class BeneficioController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $beneficio = Beneficio::with('funcionarios')->find($id);
+
+        if ($beneficio) {
+            $funcionariosRelacionados = $beneficio->funcionarios;
+
+            if ($funcionariosRelacionados->isEmpty()) {
+                $beneficio->delete();
+                return redirect()->route('beneficios.index')->with('sucesso', 'Benefício excluído com sucesso.');
+            } else {
+                return redirect()->route('beneficios.index')->with('erro', 'Não é possível excluir o benefício, pois está vinculado a funcionários.');
+            }
+        }
+
+        return redirect()->route('beneficios.index')->with('erro', 'Benefício não encontrado.');
     }
 }
