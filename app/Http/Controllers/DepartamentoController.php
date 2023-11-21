@@ -12,13 +12,13 @@ class DepartamentoController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        $departamentos = Departamento::where('nome', 'like', '%'.$request->busca.'%')->orderby('nome', 'asc')->paginate(3);
+        $departamentos = Departamento::where('nome', 'like', '%'.$request->busca.'%')->orderby('nome', 'asc')->paginate(10);
 
         $totalDepartamentos = Departamento::all()->count();
 
