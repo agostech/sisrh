@@ -9,6 +9,8 @@
 
     <h1 class="fs-2 mb-3">Lista de Benefícios</h1>
 
+    <p>Total de Benefícios: {{ $totalBeneficios }}</p>
+
     @if (Session::get('sucesso'))
         <div class="alert alert-success text-center">{{ Session::get('sucesso') }}</div>
     @endif

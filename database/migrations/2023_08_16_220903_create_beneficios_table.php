@@ -18,15 +18,6 @@ return new class extends Migration
             $table->enum('status',['on','off']);
             $table->timestamps();
         });
-
-        // Inserir cinco benefícios fictícios
-        DB::table('beneficios')->insert([
-            ['descricao' => 'Benefício A', 'status' => 'on'],
-            ['descricao' => 'Benefício B', 'status' => 'on'],
-            ['descricao' => 'Benefício C', 'status' => 'on'],
-            ['descricao' => 'Benefício D', 'status' => 'on'],
-            ['descricao' => 'Benefício E', 'status' => 'on'],
-        ]);
     }
 
     /**

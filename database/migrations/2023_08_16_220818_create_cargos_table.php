@@ -17,15 +17,6 @@ return new class extends Migration
             $table->string('descricao');
             $table->timestamps();
         });
-
-        // Inserir três cargos fictícios
-        DB::table('cargos')->insert([
-            ['descricao' => 'Cargo A'],
-            ['descricao' => 'Cargo B'],
-            ['descricao' => 'Cargo C'],
-            ['descricao' => 'Cargo D'],
-            ['descricao' => 'Cargo E'],
-        ]);
     }
 
     /**

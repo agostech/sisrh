@@ -31,30 +31,6 @@ return new class extends Migration
                 'tipo' => 'admin',
                 'password' => bcrypt('12345'),
             ],
-            [
-                'name' => 'Usuario1',
-                'email' => 'usuario1@gmail.com',
-                'tipo' => 'usuario',
-                'password' => bcrypt('123'),
-            ],
-            [
-                'name' => 'Usuario2',
-                'email' => 'usuario2@gmail.com',
-                'tipo' => 'usuario',
-                'password' => bcrypt('123'),
-            ],
-            [
-                'name' => 'Usuario3',
-                'email' => 'usuario3@gmail.com',
-                'tipo' => 'usuario',
-                'password' => bcrypt('123'),
-            ],
-            [
-                'name' => 'Usuario4',
-                'email' => 'usuario4@gmail.com',
-                'tipo' => 'usuario',
-                'password' => bcrypt('123'),
-            ],
         ]);
     }
 

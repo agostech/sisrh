@@ -17,15 +17,6 @@ return new class extends Migration
             $table->string('nome');
             $table->timestamps();
         });
-
-        // Inserir três departamentos fictícios
-        DB::table('departamentos')->insert([
-            ['nome' => 'Departamento A'],
-            ['nome' => 'Departamento B'],
-            ['nome' => 'Departamento C'],
-            ['nome' => 'Departamento D'],
-            ['nome' => 'Departamento E'],
-        ]);
     }
 
     /**
